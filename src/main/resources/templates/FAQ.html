@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부산은행 - FAQ(자주하시는질문)</title>
+    <style>
+    .content-header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    }
+
+    .faq-guide {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e1;
+    }
+
+    .faq-guide p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold;
+    }
+
+    .faq-guide ul {
+    list-style: disc;
+    margin-left: 20px;
+    font-size: 13px;
+    color: #666;
+    }
+
+    .faq-guide ul li {
+    margin-bottom: 5px;
+    }
+
+    .faq-guide ul li::marker {
+    font-size: 8px;
+    }
+
+    /* FAQ 검색 섹션 */
+    .faq-search-section {
+    margin-bottom: 50px;
+    padding: 25px 15px;
+    border-top: 1px solid #525252;
+    border-bottom: 1px solid #525252;
+    }
+
+    .faq-search-box {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .faq-search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    font-size: 14px;
+    outline: none;
+    }
+
+    .faq-search-input:focus {
+    outline: none;
+    }
+
+    .faq-search-btn {
+    padding: 12px 25px;
+    background-color: #666;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    }
+
+    .faq-search-btn:hover {
+    background-color: #555;
+    }
+
+    /* 인기검색어 태그 */
+    .faq-popular-tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    }
+
+    .popular-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+    }
+
+    .popular-tag:hover {
+    background-color: #f8f8fa;
+    }
+
+    .popular-tag-label {
+    background-color: #d32f2f;
+    color: #fff;
+    border: 1px solid #d32f2f;
+    }
+
+    .popular-tag-label:hover {
+    background-color: #b71c1c;
+    }
+
+    .tag-separator {
+    color: #ccc;
+    font-size: 13px;
+    margin: 0 2px;
+    }
+
+    /* FAQ 카테고리 그리드 */
+    .faq-category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border: 1px solid #e0e0e1;
+    margin-bottom: 30px;
+    }
+
+    .faq-category-item {
+    padding: 8px 15px;
+    text-align: center;
+    border-right: 1px solid #e0e0e1;
+    border-bottom: 1px solid #e0e0e1;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+
+    .faq-category-item:nth-child(6n) {
+    border-right: none;
+    }
+
+    .faq-category-item:nth-child(n+13) {
+    border-bottom: none;
+    }
+
+    .faq-category-item:hover {
+    background-color: #f8f8fa;
+    }
+
+    .faq-category-top10 {
+    background-color: #d32f2f;
+    color: #fff;
+    font-weight: bold;
+    border-top: 2px solid #d32f2f;
+    }
+
+    .faq-category-grid {
+    border-top: 2px solid #d32f2f;
+    }
+
+    .faq-category-top10:hover {
+    background-color: #b71c1c;
+    }
+
+    .faq-category-active {
+    text-decoration: underline;
+    }
+
+    /* FAQ 목록 섹션 */
+    .faq-list-section {
+    margin-bottom: 30px;
+    position: relative;
+    }
+
+    .faq-list-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+    }
+
+    .faq-list-count {
+    font-size: 14px;
+    color: #666;
+    }
+
+    .faq-list-divider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #d32f2f;
+    margin-top: 25px;
+    }
+
+    .faq-list {
+    border-top: 2px solid #d32f2f;
+    }
+
+    .faq-list-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e1;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+
+    .faq-list-item:hover {
+    background-color: #f8f8fa;
+    }
+
+    .faq-q-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 12px;
+    flex-shrink: 0;
+    }
+
+    .faq-question-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    }
+
+    /* FAQ 페이지네이션 */
+    .faq-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+    }
+
+    .faq-page-btn {
+    padding: 8px 12px;
+    background-color: #fff;
+    border: 1px solid #e0e0e1;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    }
+
+    .faq-page-btn:hover {
+    background-color: #f8f8fa;
+    border-color: #d32f2f;
+    color: #d32f2f;
+    }
+
+    .faq-page-active {
+    background-color: #d32f2f;
+    color: #fff;
+    border-color: #d32f2f;
+    }
+
+    .faq-page-active:hover {
+    background-color: #b71c1c;
+    color: #fff;
+    }
+
+    /* FAQ 검색 결과 */
+    .faq-search-results {
+    margin-bottom: 30px;
+    padding: 15px;
+    }
+
+    .faq-results-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    }
+
+    .faq-results-count {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    }
+
+    .faq-results-list {
+    border-top: 1px solid #e0e0e1;
+    }
+
+    .faq-result-item {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e1;
+    transition: background-color 0.3s;
+    }
+
+    .faq-result-item:hover {
+    background-color: #f8f8fa;
+    }
+
+    .faq-result-item h4 {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    }
+
+    .faq-result-item p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    }
+
+    /* TOP 10 섹션 */
+    .faq-top10-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    }
+
+    .faq-top10-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    }
+
+    .faq-top10-list {
+    list-style: none;
+    border-top: 1px solid #e0e0e1;
+    }
+
+    .faq-top10-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e1;
+    transition: background-color 0.3s;
+    }
+
+    .faq-top10-list li:hover {
+    background-color: #f8f8fa;
+    }
+
+    .faq-top10-list li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    }
+
+    .faq-top10-list li a:hover {
+    color: #d32f2f;
+    }
+
+    /* 고객상담 정보 */
+    .faq-contact-info {
+    padding: 15px;
+    background-color: #f8f8fa;
+    border: 1px solid #e0e0e1;
+    }
+
+    .faq-contact-info p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    }
+
+    .faq-contact-info p strong {
+    color: #333;
+    }
+    </style>
+</head>
+<body>
+<!-- Header Section -->
+<header>
+</header>
+
+<!-- Main Content Section -->
+<main>
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Left Sidebar -->
+            <!--<aside class="sidebar">
+                <div class="title-divider-light"></div>
+                <nav class="sidebar-nav">
+                    <h2 class="sidebar-title">고객상담</h2>
+
+                    <a href="#" class="sidebar-link active">
+                        FAQ(자주하시는질문)
+                        <span class="arrow">→</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        (업무별)은행거래 필요서류 안내
+                        <span class="arrow">→</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        TALK상담
+                        <span class="arrow">→</span>
+                    </a>
+                    <a href="#" class="sidebar-link">
+                        온라인상담
+                        <span class="arrow">→</span>
+                    </a>
+                </nav>
+                <div class="sidebar-icons">
+                    <div class="sidebar-icon-item">
+                        <div class="icon-bubble">💬</div>
+                        <span>Talk상담</span>
+                    </div>
+                    <div class="sidebar-icon-item">
+                        <div class="icon-envelope">✉</div>
+                        <span>메일상담</span>
+                    </div>
+                    <div class="sidebar-icon-item">
+                        <div class="icon-question">?</div>
+                        <span>FAQ</span>
+                    </div>
+                </div>
+            </aside>
+        -->
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <div class="content-header">
+                    <h1>FAQ(자주하시는질문(화면비율 수정))</h1>
+                </div>
+
+                <!-- FAQ 안내 메시지 -->
+                <div class="faq-guide">
+                    <ul>
+                        <li>부산은행 웹사이트 이용시 자주하는 질문을 정리하였습니다.</li>
+                        <li>원하는 질문 및 답변을 바로 찾으실려면 검색을 이용하여 주십시오.</li>
+                    </ul>
+                </div>
+
+                <!-- FAQ 검색 -->
+                <div class="faq-search-section">
+                    <div class="faq-search-box">
+                        <input type="text" class="faq-search-input" placeholder="FAQ 검색" id="faqSearchInput">
+                        <button class="faq-search-btn">검색</button>
+                    </div>
+                    <div class="faq-popular-tags">
+                        <span class="popular-tag">#펀드</span>
+                        <span class="popular-tag">#대출</span>
+                        <span class="popular-tag">#디지털OTP</span>
+                        <span class="popular-tag">#한도제한계좌</span>
+                        <span class="popular-tag">#모바일뱅킹</span>
+                    </div>
+                </div>
+
+
+                <!-- FAQ 목록 -->
+                <div class="faq-list-section">
+                    <div class="faq-list-header">
+                        <span class="faq-list-count">총 15건 현재: 1/2페이지</span>
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">대출 만기가 되었는데, 기한연장 가능한가요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[모바일뱅킹] 동장사본 발급 할 수 있나요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[모바일뱅킹] 모바일뱅킹에서 이체한도 변경이 가능한가요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[모바일뱅킹] 모바일뱅킹에서 입출금동지서비스는 어떻게 가입하나요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[개인뱅킹] 인터넷뱅킹 이체한도 상향은 어떻게 하나요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[개인뱅킹] 계좌 비밀번호 3회 오류 났는데 어떻게 해야 하나요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">가계대출 신청 시 DSR 규제가 무엇인가요?</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">결제일 변경 방법을 알고 싶습니다.</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[기업뱅킹] 기업뱅킹 재이용신청 경로 알려 주세요.</span>
+                        </div>
+                        <div class="faq-list-item">
+                            <span class="faq-q-icon">Q</span>
+                            <span class="faq-question-text">[기업뱅킹] 기업뱅킹 증명서 발급 경로 알려주세요.</span>
+                        </div>
+                    </div>
+                    <div class="faq-pagination">
+                        <button class="faq-page-btn"><<</button>
+                        <button class="faq-page-btn"><</button>
+                        <button class="faq-page-btn faq-page-active">1</button>
+                        <button class="faq-page-btn">2</button>
+                        <button class="faq-page-btn">></button>
+                        <button class="faq-page-btn">>></button>
+                    </div>
+                </div>
+
+                <!-- 검색 결과 -->
+                <div class="faq-search-results" id="faqSearchResults" style="display: none;">
+                    <h3 class="faq-results-title">검색결과</h3>
+                    <p class="faq-results-count" id="faqResultsCount"></p>
+                    <div class="faq-results-list" id="faqResultsList"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer Section -->
+<footer>
+</footer>
+
+<script>
+    // FAQ 검색 기능
+    const faqSearchInput = document.getElementById('faqSearchInput');
+    const faqSearchBtn = document.querySelector('.faq-search-btn');
+    const faqSearchResults = document.getElementById('faqSearchResults');
+    const faqResultsCount = document.getElementById('faqResultsCount');
+    const faqResultsList = document.getElementById('faqResultsList');
+
+    // 샘플 FAQ 데이터
+    const faqData = [
+        {
+            question: '개인정보처리방침은 어디서 확인할 수 있나요?',
+            answer: '개인정보처리방침은 홈페이지 하단 또는 고객센터에서 확인하실 수 있습니다.'
+        },
+        {
+            question: '인터넷뱅킹 비밀번호를 변경하고 싶습니다.',
+            answer: '로그인 후 마이페이지 > 보안설정 > 비밀번호 변경에서 변경하실 수 있습니다.'
+        },
+        {
+            question: '계좌이체는 언제까지 가능한가요?',
+            answer: '이체는 평일 오전 9시부터 오후 4시까지 가능하며, 실시간 이체는 24시간 가능합니다.'
+        },
+        {
+            question: '카드 분실 신고는 어떻게 하나요?',
+            answer: '고객센터 1588-6200으로 연락하시거나 인터넷뱅킹에서 신고하실 수 있습니다.'
+        },
+        {
+            question: '대출 상담은 어디서 받을 수 있나요?',
+            answer: '고객센터 1588-6200 또는 영업점 방문 시 상담받으실 수 있습니다.'
+        }
+    ];
+
+    function performSearch() {
+        const searchTerm = faqSearchInput.value.trim().toLowerCase();
+
+        if (searchTerm === '') {
+            faqSearchResults.style.display = 'none';
+            return;
+        }
+
+        const results = faqData.filter(faq =>
+            faq.question.toLowerCase().includes(searchTerm) ||
+            faq.answer.toLowerCase().includes(searchTerm)
+        );
+
+        if (results.length > 0) {
+            faqSearchResults.style.display = 'block';
+            faqResultsCount.textContent = `"${faqSearchInput.value}"의 검색결과입니다.(${results.length}건)`;
+
+            faqResultsList.innerHTML = results.map(faq => `
+                    <div class="faq-result-item">
+                        <h4>${faq.question}</h4>
+                        <p>${faq.answer}</p>
+                    </div>
+                `).join('');
+        } else {
+            faqSearchResults.style.display = 'block';
+            faqResultsCount.textContent = `"${faqSearchInput.value}"의 검색결과입니다.(0건)`;
+            faqResultsList.innerHTML = '<p>검색 결과가 없습니다.</p>';
+        }
+    }
+
+    faqSearchBtn.addEventListener('click', performSearch);
+    faqSearchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+</script>
+
+</body>
+</html>
