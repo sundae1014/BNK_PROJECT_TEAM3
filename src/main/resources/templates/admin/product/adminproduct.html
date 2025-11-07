@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 목록 - 은행 펀드 상품 관리자</title>
+    <link rel="stylesheet" href="admin_styles.css">
+    <link rel="stylesheet" href="adminproduct.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="sidebar-script.js"></script>
+</head>
+<body>
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="header-content">
+                <a href="adminMain.html">
+                    <img src="logo.png" alt="BNK 부산은행" class="sidebar-logo">
+                </a>
+                <span class="admin-label">관리자</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item has-submenu open">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">상품관리</a>
+                    <ul class="submenu">
+                        <li><a href="adminproduct.html" class="active">상품 목록</a></li>
+                        <li><a href="adminproduct-register.html">상품등록</a></li>
+                        <li><a href="adminproduct-pending.html">상품 등록 대기</a></li>
+                        <li><a href="adminproduct-edit.html">상품 수정</a></li>
+                        <li><a href="adminproduct-documents.html">문서 관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">정보/공시</a>
+                    <ul class="submenu">
+                        <li><a href="#">공시자료</a></li>
+                        <li><a href="#">수시공시</a></li>
+                        <li><a href="#">펀드정보</a></li>
+                        <li><a href="#">펀드가이드</a></li>
+                        <li><a href="#">펀드시황관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">고객지원</a>
+                    <ul class="submenu">
+                        <li><a href="#">FAQ 관리</a></li>
+                        <li><a href="#">QnA관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">환경설정</a>
+                    <ul class="submenu">
+                        <li><a href="#">검색어관리</a></li>
+                        <li><a href="#">카테고리 관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">결재(승인) 관리</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header class="main-header">
+            <div class="header-right">
+                <span class="user-name">누구닉네임 님</span>
+                <span class="header-divider">|</span>
+                <a href="#" class="logout-link">로그아웃</a>
+            </div>
+        </header>
+        <div class="main-content-body">
+            <div class="container">
+            <!-- 페이지 헤더 -->
+            <header class="page-header">
+                <h1>상품목록</h1>
+                <div class="header-actions">
+                    <button class="btn btn-red" onclick="location.href='adminproduct-register.html'">상품신규등록</button>
+                    <button class="btn btn-secondary" onclick="showDisplayOrder()">상품전시순서변경</button>
+                </div>
+            </header>
+
+            <!-- 검색 섹션 -->
+            <div class="search-section">
+                <table class="search-table">
+                    <tbody>
+                        <tr>
+                            <td class="search-label">검색조건</td>
+                            <td class="search-inputs">
+                                <select class="form-select search-select-small" id="searchNameSelect">
+                                    <option>상품명</option>
+                                    <option>상품코드</option>
+                                    <option>유형</option>
+                                </select>
+                                <input type="text" class="form-input search-input-large" id="searchName" placeholder="입력하세요">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="search-label">상품분류</td>
+                            <td class="search-inputs">
+                                <select class="form-select search-select-medium" id="searchCategory">
+                                    <option>전체</option>
+                                    <option>주식형</option>
+                                    <option>채권형</option>
+                                    <option>혼합형</option>
+                                    <option></option>
+
+                                </select>
+                                
+                                <select class="form-select search-select-medium" id="searchStatus">
+                                    <option>전체</option>
+                                    <option>게시중</option>
+                                    <option>수정중</option>
+                                    <option>대기중</option>
+                                    <option>중단</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="search-actions">
+                    <button class="btn btn-search" onclick="searchProducts()">조회</button>
+                </div>
+            </div>
+
+            <!-- 상품 목록 테이블 -->
+            <div class="table-section">
+                <div class="table-info">
+                    <span>총 <strong id="totalCount">0</strong>개</span>
+                    <span class="pagination-info"><span id="currentPage">1</span> / <span id="totalPages">1</span> page</span>
+                </div>
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>상품코드</th>
+                            <th>유형</th>
+                            <th>상품명</th>
+                            <th></th>
+                            <th>회사명</th>
+                            <th>등록일자</th>
+                            <th>상태</th>
+                            <th>상품관리</th>
+                            <th>수정</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                    
+                        <tr>
+                            <td>3</td>
+                            <td>0015400182</td>
+                            <td>적금</td>
+                            <td>
+                                <a href="#" class="product-name-link" onclick="viewProductDetail(2); return false;">
+                                    더음
+                                </a>
+                            </td>
+                            <td>
+                                <button class="view-detail-btn" onclick="viewProductDetail(2)" title="상세보기">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </td>
+                            <td>신한은행</td>
+                            <td>2022-03-15</td>
+                            <td><span class="status-badge modifying">수정중</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" onclick="resumeProduct(2)">재개</button>
+                                    <button class="action-btn stop" onclick="endProduct(2)">상품종료</button>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="action-btn edit" onclick="editProduct(2)">수정</button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>2</td>
+                            <td>0014500678</td>
+                            <td>대출</td>
+                            <td>
+                                <a href="#" class="product-name-link" onclick="viewProductDetail(4); return false;">
+                                    키드
+                                </a>
+                            </td>
+                            <td>
+                                <button class="view-detail-btn" onclick="viewProductDetail(4)" title="상세보기">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </td>
+                            <td>우리은행</td>
+                            <td>2023-05-10</td>
+                            <td><span class="status-badge stop">중단</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" onclick="resumeProduct(4)">재개</button>
+                                    <button class="action-btn stop" onclick="endProduct(4)">상품종료</button>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="action-btn edit" onclick="editProduct(4)">수정</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>0016700890</td>
+                            <td>대출</td>
+                            <td>
+                                <a href="#" class="product-name-link" onclick="viewProductDetail(5); return false;">
+                                    기업대출상품
+                                </a>
+                            </td>
+                            <td>
+                                <button class="view-detail-btn" onclick="viewProductDetail(5)" title="상세보기">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </td>
+                            <td>NH은행</td>
+                            <td>2023-08-25</td>
+                            <td><span class="status-badge pending">대기중</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                </div>
+                            </td>
+                            <td>
+                                <button class="action-btn edit" onclick="editProduct(5)">수정</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button class="page-btn" onclick="prevPage()">이전</button>
+                    <span class="page-numbers" id="pageNumbers"></span>
+                    <button class="page-btn" onclick="nextPage()">다음</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 상품 세부사항 모달 -->
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>상품 세부사항</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 상품 상세 정보가 여기에 표시됩니다 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function editProduct(productId) {
+            location.href = `adminproduct-edit.html?id=${productId}`;
+        }
+    </script>
+</body>
+</html>

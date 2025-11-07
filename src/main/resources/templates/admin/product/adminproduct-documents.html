@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서 관리 - 은행 펀드 상품 관리자</title>
+    <link rel="stylesheet" href="admin_styles.css">
+    <link rel="stylesheet" href="adminproduct.css">
+    <script src="sidebar-script.js"></script>
+</head>
+<body>
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="header-content">
+                <a href="adminMain.html">
+                    <img src="logo.png" alt="BNK 부산은행" class="sidebar-logo">
+                </a>
+                <span class="admin-label">관리자</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item has-submenu open">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">상품관리</a>
+                    <ul class="submenu">
+                        <li><a href="adminproduct.html">상품 목록</a></li>
+                        <li><a href="adminproduct-register.html">상품등록</a></li>
+                        <li><a href="adminproduct-pending.html">상품 등록 대기</a></li>
+                        <li><a href="adminproduct-edit.html">상품 수정</a></li>
+                        <li><a href="adminproduct-documents.html" class="active">문서 관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">정보/공시</a>
+                    <ul class="submenu">
+                        <li><a href="#">공시자료</a></li>
+                        <li><a href="#">수시공시</a></li>
+                        <li><a href="#">펀드정보</a></li>
+                        <li><a href="#">펀드가이드</a></li>
+                        <li><a href="#">펀드시황관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">고객지원</a>
+                    <ul class="submenu">
+                        <li><a href="#">FAQ 관리</a></li>
+                        <li><a href="#">QnA관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">환경설정</a>
+                    <ul class="submenu">
+                        <li><a href="#">검색어관리</a></li>
+                        <li><a href="#">카테고리 관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">결재(승인) 관리</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header class="main-header">
+            <div class="header-right">
+                <span class="user-name">누구닉네임 님</span>
+                <span class="header-divider">|</span>
+                <a href="#" class="logout-link">로그아웃</a>
+            </div>
+        </header>
+        <div class="main-content-body">
+            <div class="container">
+            <!-- 페이지 헤더 -->
+            <header class="page-header">
+                <h1>상품설명서/약관 문서 관리</h1>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="location.href='adminproduct.html'">목록으로</button>
+                </div>
+            </header>
+
+            <div class="form-section">
+                <p class="info-text">상품을 선택하여 문서를 등록하거나 수정하세요.</p>
+                
+                <!-- 검색 섹션 -->
+                <div class="search-section">
+                    <div class="search-form">
+                        <div class="search-row">
+                            <div class="search-field">
+                                <label>상품코드</label>
+                                <input type="text" class="form-input" id="searchCode" placeholder="상품코드 입력">
+                            </div>
+                            <div class="search-field">
+                                <label>상품명</label>
+                                <input type="text" class="form-input" id="searchName" placeholder="상품명 입력">
+                            </div>
+                            <div class="search-actions">
+                                <button class="btn btn-search" onclick="searchProductForDoc()">검색</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 문서 관리 폼 -->
+                <div id="documentForm" class="product-form" style="display: none;">
+                    <div class="form-group">
+                        <label>상품명</label>
+                        <input type="text" class="form-input" id="docProductName" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>상품코드</label>
+                        <input type="text" class="form-input" id="docProductCode" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>상품설명서 <span class="required">*</span></label>
+                        <div class="file-upload">
+                            <input type="file" id="productDoc" accept=".pdf,.doc,.docx" style="display: none;">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('productDoc').click()">파일 선택</button>
+                            <span id="productDocFileName" class="file-name"></span>
+                        </div>
+                        <div id="productDocList" class="file-list"></div>
+                        <small class="file-help">PDF, DOC, DOCX 파일만 업로드 가능합니다.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>약관 문서 <span class="required">*</span></label>
+                        <div class="file-upload">
+                            <input type="file" id="termsDoc" accept=".pdf,.doc,.docx" style="display: none;">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('termsDoc').click()">파일 선택</button>
+                            <span id="termsDocFileName" class="file-name"></span>
+                        </div>
+                        <div id="termsDocList" class="file-list"></div>
+                        <small class="file-help">PDF, DOC, DOCX 파일만 업로드 가능합니다.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>기타 문서</label>
+                        <div class="file-upload">
+                            <input type="file" id="otherDoc" accept=".pdf,.doc,.docx" multiple style="display: none;">
+                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('otherDoc').click()">파일 선택</button>
+                        </div>
+                        <div id="otherDocList" class="file-list"></div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" onclick="saveDocuments()">저장</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelDocument()">취소</button>
+                        <button type="button" class="btn btn-secondary" onclick="location.href='adminproduct.html'">목록으로</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="sidebar-script.js"></script>
+</body>
+</html>
+
