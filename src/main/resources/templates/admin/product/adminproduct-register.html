@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품신규등록 - 은행 펀드 상품 관리자</title>
+    <link rel="stylesheet" href="admin_styles.css">
+    <link rel="stylesheet" href="adminproduct.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="sidebar-script.js"></script>
+</head>
+<body>
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="header-content">
+                <a href="adminMain.html">
+                    <img src="logo.png" alt="BNK 부산은행" class="sidebar-logo">
+                </a>
+                <span class="admin-label">관리자</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="menu-item has-submenu open">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">상품관리</a>
+                    <ul class="submenu">
+                        <li><a href="adminproduct.html">상품 목록</a></li>
+                        <li><a href="adminproduct-register.html" class="active">상품등록</a></li>
+                        <li><a href="adminproduct-pending.html">상품 등록 대기</a></li>
+                        <li><a href="adminproduct-edit.html">상품 수정</a></li>
+                        <li><a href="adminproduct-documents.html">문서 관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">정보/공시</a>
+                    <ul class="submenu">
+                        <li><a href="#">공시자료</a></li>
+                        <li><a href="#">수시공시</a></li>
+                        <li><a href="#">펀드정보</a></li>
+                        <li><a href="#">펀드가이드</a></li>
+                        <li><a href="#">펀드시황관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">고객지원</a>
+                    <ul class="submenu">
+                        <li><a href="#">FAQ 관리</a></li>
+                        <li><a href="#">QnA관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="#" onclick="toggleSubmenu(this.parentElement); return false;">환경설정</a>
+                    <ul class="submenu">
+                        <li><a href="#">검색어관리</a></li>
+                        <li><a href="#">카테고리 관리</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">결재(승인) 관리</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header class="main-header">
+            <div class="header-right">
+                <span class="user-name">누구닉네임 님</span>
+                <span class="header-divider">|</span>
+                <a href="#" class="logout-link">로그아웃</a>
+            </div>
+        </header>
+        <div class="main-content-body">
+            <div class="container">
+                <!-- 페이지 헤더 -->
+                <header class="page-header">
+                    <h1>상품신규등록</h1>
+                </header>
+
+                <!-- 펀드 검색 -->
+                <div class="product-classification-bar">
+                    <div class="classification-label">펀드 검색</div>
+                    <div class="classification-inputs">
+                        <div class="search-input-wrapper-inline">
+                            <input type="text" class="form-input search-input-large" id="searchFund" placeholder="입력하세요">
+                            <button class="btn btn-search-inline" onclick="searchFunds()">검색</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 필수정보 -->
+                <div class="form-section">
+                    <h2 class="section-title">필수정보</h2>
+                    <div class="form-table">
+                        <div class="form-row">
+                            <div class="form-label">상품명</div>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" id="productName" placeholder="상품명을 입력하세요">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">상품코드</div>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" id="productCode" placeholder="상품코드를 입력하세요">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">상품번호</div>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" id="productNumber" placeholder="상품번호를 입력하세요">
+                                <button type="button" class="btn btn-secondary btn-small">동일상품찾기</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">상품상태</div>
+                            <div class="form-input-wrapper">
+                                <input type="text" class="form-input" id="productStatus" placeholder="상품상태를 입력하세요">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">상품개요</div>
+                            <div class="form-input-wrapper">
+                                <textarea class="form-textarea" id="productOverview" rows="5" placeholder="상품개요를 입력하세요"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 고객구분 -->
+                <div class="form-section">
+                    <h2 class="section-title">고객구분</h2>
+                    <div class="customer-classification">
+                        <div class="classification-group">
+                            <h3 class="group-title">생애주기</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="lifecycle" value="infancy"> 유아청소년기
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="lifecycle" value="entry"> 사회진입기
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="lifecycle" value="family"> 가정형설기
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="lifecycle" value="asset"> 재산형설기
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="lifecycle" value="retirement"> 퇴직준비기
+                                </label>
+                            </div>
+                        </div>
+                        <div class="classification-group">
+                            <h3 class="group-title">고객구분</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="infant"> 유아청소년
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="student"> 대학생
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="worker"> 직장인
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="official"> 공무원
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="business"> 사업자
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="female"> 여성
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="customer" value="senior"> 실버
+                                </label>
+                            </div>
+                        </div>
+                        <div class="classification-group">
+                            <h3 class="group-title">목적구분</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="housing"> 주택마련
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="tuition"> 학자금
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="car"> 자동차구입
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="investment"> 재테크
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="meeting"> 모임관리
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="tax"> 세테크
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="hobby"> 취미
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="funeral"> 상조/결혼
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="childbirth"> 출산
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="purpose" value="startup"> 창업
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 기본속성 -->
+                <div class="form-section">
+                    <h2 class="section-title">기본속성</h2>
+                    <div class="form-table">
+                        <div class="form-row">
+                            <div class="form-label">특판상품여부</div>
+                            <div class="form-input-wrapper">
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="specialSale" value="use"> 사용
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="specialSale" value="notuse" checked> 미사용
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">세금우대여부</div>
+                            <div class="form-input-wrapper">
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="taxPreference" value="yes"> 예
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="taxPreference" value="no" checked> 아니오
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">예금자보호여부</div>
+                            <div class="form-input-wrapper">
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="depositorProtection" value="yes"> 예
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="depositorProtection" value="no" checked> 아니오
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">가입형태</div>
+                            <div class="form-input-wrapper">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionType" value="branch"> 영업점가입
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionType" value="internet"> 인터넷가입
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionType" value="mobile"> 개인모바일가입
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionType" value="corp"> 기업모바일가입
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionType" value="bank"> 뱅크가입
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">가입대상</div>
+                            <div class="form-input-wrapper">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionTarget" value="individual"> 개인
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionTarget" value="business"> 개인사업자
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="subscriptionTarget" value="corporate"> 법인
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">납입방법</div>
+                            <div class="form-input-wrapper">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="paymentMethod" value="deposit"> 입출금식
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="paymentMethod" value="fixed"> 거치식
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="paymentMethod" value="installment"> 적립식
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 폼 액션 버튼 -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-red">등록</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='adminproduct.html'">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
