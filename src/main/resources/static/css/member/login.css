@@ -21,22 +21,15 @@ body {
     border-bottom: 1px solid #e0e0e0;
 }
 
-.tab-menu button {
+.tab-menu p {
     flex: 1;
     padding: 14px 0;
     border: none;
     background: #f9f9f9;
-    cursor: pointer;
     font-size: 15px;
     white-space: nowrap;
     transition: all 0.2s;
-}
-
-.tab-menu button.active {
-    background: #fff;
-    border-bottom: 2px solid #c6281f;
-    font-weight: bold;
-    color: #c6281f;
+    text-align: center;
 }
 
 /* ======================= 공통 레이아웃 ======================= */
@@ -66,8 +59,8 @@ body {
 /* 공통 빨간 버튼 */
 .btn-red {
     display: block;
-    width: 90%;              /* ✅ 화면 비율 기반 확장 */
-    max-width: 420px;        /* ✅ PC에서는 최대 420px까지만 */
+    width: 90%;
+    max-width: 420px;
     margin: 12px auto;
     background: #c6281f;
     color: #fff;
@@ -113,7 +106,7 @@ body {
 /* 홈페이지 로그인 폼 */
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    width: 100%;
+    width: 67%;
     padding: 14px;
     margin-bottom: 18px;
     border: 1px solid #e0e0e0;
@@ -128,23 +121,4 @@ body {
     gap: 6px;
     margin-bottom: 25px;
     justify-content: center;
-}
-
-@media (max-width: 480px) {
-    .login-container {
-        width: 95%;
-        margin: 40px auto;
-    }
-
-    .tab-menu button {
-        font-size: 13px;
-        padding: 12px 0;
-    }
-
-    .btn-red {
-        font-size: 15px;
-        padding: 14px;
-        width: 95%;
-        max-width: 380px;
-    }
 }
