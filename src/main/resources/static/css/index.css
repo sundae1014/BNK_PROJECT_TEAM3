@@ -76,7 +76,7 @@ img {
     height: 32px;
     padding-left: 30px;
     padding-right: 10px;
-    background: url(../images/main/ico_gnb_search.png) no-repeat 10px center;
+    background: url(/bnk/images/main/ico_gnb_search.png) no-repeat 10px center;
     background-size: 16px 16px;
     border: 1px solid #e0e0e1;
     border-radius: 4px;
@@ -98,7 +98,7 @@ img {
     height: 32px;
     padding-left: 30px;
     padding-right: 10px;
-    background: url(../images/main/ico_gnb_allmenu.png) no-repeat 10px center;
+    background: url(/bnk/images/main/ico_gnb_allmenu.png) no-repeat 10px center;
     background-size: 16px 16px;
     border: 1px solid #e0e0e1;
     border-radius: 4px;
@@ -315,23 +315,23 @@ img {
 
 .today-list li:nth-child(1):after {
     width: 40px;
-    background-image: url(../images/main/ico_num_01.png);
+    background-image: url(/bnk/images/main/ico_num_01.png);
 }
 
 .today-list li:nth-child(2):after {
-    background-image: url(../images/main/ico_num_02.png);
+    background-image: url(/bnk/images/main/ico_num_02.png);
 }
 
 .today-list li:nth-child(3):after {
-    background-image: url(../images/main/ico_num_03.png);
+    background-image: url(/bnk/images/main/ico_num_03.png);
 }
 
 .today-list li:nth-child(4):after {
-    background-image: url(../images/main/ico_num_04.png);
+    background-image: url(/bnk/images/main/ico_num_04.png);
 }
 
 .today-list li:nth-child(5):after {
-    background-image: url(../images/main/ico_num_05.png);
+    background-image: url(/bnk/images/main/ico_num_05.png);
 }
 
 /* 카드 간 구분선 */
